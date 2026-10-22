@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Adaptive Temperature — Illustrated User Guide</title>
+<style>
+:root{--green:#00796e;--ink:#213330;--muted:#536963;--line:#d5e4df;--tint:#edf7f3}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#e7eeeb;color:var(--ink);font:15px/1.5 'Segoe UI',Arial,sans-serif}a{color:var(--green)}
+nav{position:sticky;top:0;z-index:2;background:#123e37;color:#fff;padding:12px 22px;display:flex;gap:18px;flex-wrap:wrap;justify-content:center}nav a{color:#fff;font-size:13px;text-decoration:none}nav a:hover{text-decoration:underline}
+.sheet{max-width:980px;margin:24px auto;padding:42px 48px;background:#fff;border-radius:8px;box-shadow:0 3px 16px #193b3010;scroll-margin-top:70px}
+.eyebrow{color:var(--green);text-transform:uppercase;letter-spacing:.13em;font-size:12px;font-weight:700;margin-bottom:10px}h1{font-size:40px;line-height:1.12;margin:0 0 18px}h2{font-size:27px;line-height:1.2;margin:0 0 12px}h3{font-size:17px;margin:20px 0 7px}p{margin:9px 0}.lead{font-size:19px;color:var(--muted)}.note{background:var(--tint);border-left:4px solid var(--green);padding:11px 15px;margin:16px 0}.small,figcaption{font-size:12px;color:var(--muted)}figure{margin:18px 0 12px}figure img{display:block;width:100%;height:auto;border-radius:5px;border:1px solid #334b44}figure a{display:block}figcaption{margin-top:6px}table{border-collapse:collapse;width:100%;margin:14px 0;font-size:14px}th,td{text-align:left;vertical-align:top;padding:8px 10px;border-bottom:1px solid var(--line)}th{background:var(--tint);font-weight:600}td:first-child{width:28%;font-weight:600}ol,ul{padding-left:23px;margin:10px 0}li{padding-left:3px;margin:6px 0}code{font:13px Consolas,monospace;background:var(--tint);padding:2px 4px;border-radius:3px}.step{display:inline-block;background:var(--green);color:#fff;padding:3px 9px;border-radius:4px;font-size:12px;margin-bottom:12px}.toc{columns:2;column-gap:32px}.toc a{display:block;margin:7px 0}.footer{border-top:1px solid var(--line);padding-top:11px;margin-top:22px;font-size:11px;color:var(--muted)}.compact td,.compact th{padding:6px 9px}.two{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+@media(max-width:720px){.sheet{margin:12px;padding:25px 22px}h1{font-size:32px}h2{font-size:24px}.toc{columns:1}.two{grid-template-columns:1fr}table{font-size:13px}td:first-child{width:30%}nav{position:static}}
+@page{size:A4;margin:14mm 15mm}
+@media print{html{scroll-behavior:auto}body{background:#fff;font-size:10pt;line-height:1.4;-webkit-print-color-adjust:exact;print-color-adjust:exact}nav{display:none}.sheet{margin:0;padding:0;max-width:none;border-radius:0;box-shadow:none;break-after:page;scroll-margin:0}.sheet:last-child{break-after:auto}h1{font-size:29pt}h2{font-size:20pt}h3{font-size:12pt;margin-top:13px}.eyebrow,.step{font-size:9pt}.lead{font-size:13pt}table{font-size:9pt;margin:10px 0}th,td{padding:6px 8px}figure{margin:12px 0 8px;break-inside:avoid}figure img{border-radius:3px}figcaption,.small{font-size:8pt}p{margin:7px 0}.note{padding:8px 12px;margin:10px 0}li{margin:5px 0}.footer{font-size:8pt;margin-top:14px}tr{break-inside:avoid}h2,h3{break-after:avoid}.toc{columns:2}a{text-decoration:none}figure a{line-height:0}}
+</style>
+</head>
+<body>
+<nav aria-label="Guide sections"><a href="#start">Start</a><a href="#profile">Profile</a><a href="#curve">Flow curve</a><a href="#curve-tips">Curve tips</a><a href="#connection">Connection</a><a href="#load">Flow test</a><a href="#response">Response test</a><a href="#results">Results</a><a href="#apply">Apply</a><a href="#burst">Burst</a><a href="#export">Export</a><a href="#tools">Tools</a><a href="#help">Help</a></nav>
+
+<section class="sheet" id="start">
+<div class="eyebrow">Version 0.5.8 · Illustrated user guide</div>
+<h1>Adaptive Temperature</h1>
+<p class="lead">One filament profile. Temperature that follows the print’s flow demand.</p>
+<p>The plugin combines your temperature/flow curve with your hotend’s measured heating and cooling response. It predicts upcoming demand using print speed and acceleration, then adds nozzle temperature commands to exported G-code.</p>
+<div class="note"><strong>Two measurements do different jobs.</strong> The flow curve describes which temperature supports a given flow. The heating/cooling calibration measures how quickly the nozzle sensor responds. You need both for predictive scheduling.</div>
+<h3>Install and enable</h3>
+<ol>
+<li>Use an OrcaSlicer 2.5 nightly with <strong>Pages</strong> and <strong>Slicing Pipeline</strong> plugin support and Python 3.12 or newer. This release was checked against nightly <code>24571737</code>; menus may vary between nightlies.</li>
+<li>Install <code>adaptive_temperature-0.5.8-py3-none-any.whl</code> through Orca’s plugin manager.</li>
+<li>Enable the <strong>Adaptive Temperature</strong> Pages capability. Open its tab beside <strong>Project</strong>.</li>
+<li>In Orca’s <strong>Process</strong> settings, open <strong>Others</strong>. Under <strong>Slicing Pipeline Plugin</strong>, click <strong>+ Add plugin</strong> and select <strong>Adaptive Temperature — slice analysis</strong> for the print. Use Advanced settings mode if the option is hidden.</li>
+<li>Begin with <strong>Analyze only</strong>. Configure the profile, calibrate, apply the response, then enable temperature output.</li>
+</ol>
+<h3>Your first setup</h3>
+<div class="toc">
+<a href="#profile">01 · Choose tools and identify the filament</a>
+<a href="#curve">02 · Enter measured flow capacity</a>
+<a href="#curve-tips">Curve tips · Reuse known presets and compare examples</a>
+<a href="#connection">03 · Connect and choose a clear positioning path</a>
+<a href="#load">04 · Check behavior under flow</a>
+<a href="#response">05 · Measure heating and cooling</a>
+<a href="#results">06 · Read the results</a>
+<a href="#apply">07 · Apply and save the response</a>
+<a href="#burst">08 · Set output and burst behavior</a>
+<a href="#export">09 · Export and inspect G-code</a>
+<a href="#tools">10 · Configure multiple tools and back up</a>
+<a href="#help">11 · Troubleshooting and input reference</a>
+</div>
+<p class="small">Pictures show real controls from the released plugin, reframed for readability. Values and results are illustrative, with simulated telemetry. They are not calibration recommendations. Click a picture in the HTML guide to view it at full size. Live calibration currently requires Windows and Moonraker/Klipper; the current live runner and editor support 1.75 mm filament.</p>
+<div class="footer">Adaptive Temperature · User guide · 1 / 13</div>
+</section>
+
+<section class="sheet" id="profile">
+<span class="step">01 · Filament curve</span>
+<h2>Choose the tool and describe its setup</h2>
+<p>Open <strong>Filament curve</strong>. Select <strong>Single tool</strong> or <strong>Toolchanger</strong> under Printer tools. For a toolchanger, set the tool count and choose the tool you are editing or calibrating.</p>
+<figure><a href="images/01-profile.png"><img src="images/01-profile.png" alt="Printer tools set to Single tool, followed by Example PLA, hotend description, 0.4 mm nozzle, and physical and logical tool indices 0."></a><figcaption>Tool indices start at zero: T0 is toolhead 1; T3 is toolhead 4.</figcaption></figure>
+<table>
+<thead><tr><th>Input</th><th>What to enter</th></tr></thead>
+<tbody>
+<tr><td>Filament</td><td>A recognizable name for this material, such as a brand, product and color. The default is PLA.</td></tr>
+<tr><td>Filament type in slice</td><td>The material type in Orca’s exported slice, such as <strong>PLA</strong>. This is checked during export.</td></tr>
+<tr><td>Hotend / heater / nozzle</td><td>A description that distinguishes the installed setup. Update it when the hardware changes.</td></tr>
+<tr><td>Calibrated nozzle diameter</td><td>The installed nozzle diameter in mm. It must match the exported slice.</td></tr>
+<tr><td>Physical / sliced tool indices</td><td>The printer tool and its G-code tool number. These must match in this release.</td></tr>
+</tbody></table>
+<p>Use <strong>Save plugin settings</strong> at the top or bottom of this page after making changes. A new profile has restrictive placeholder values and an unconfigured response; replace them with your own data.</p>
+<div class="note">Calibration belongs to the filament, hotend, nozzle and tool combination. Changing that identity can invalidate the saved response binding. Load or measure a response for the new setup.</div>
+<div class="footer">Adaptive Temperature · User guide · 2 / 13</div>
+</section>
+
+<section class="sheet" id="curve">
+<span class="step">02 · Filament curve</span>
+<h2>Define temperature versus reliable flow</h2>
+<p>Enter <strong>3–4 tested temperature/flow pairs</strong> or use known presets for the same setup. <a href="#curve-tips">See tips and examples.</a> The flow-load test checks thermal behavior; it does not discover flow limits.</p>
+<figure><a href="images/02-curve.png"><img src="images/02-curve.png" alt="Operating bounds 210 to 240 degrees C, max flow 24, headroom 10 percent; example curve points 210/12, 220/16, 230/20 and 240/24, plus a flow graph and trial input."></a><figcaption>Illustrative curve only. Use your measured temperatures and maximum reliable flows, in mm³/s.</figcaption></figure>
+<table class="compact"><thead><tr><th>Input</th><th>Meaning</th></tr></thead><tbody>
+<tr><td>Minimum / maximum temperature</td><td>The allowed scheduling range. Set the minimum for reliable low-flow print quality and the maximum for your material and hardware.</td></tr>
+<tr><td>Maximum flow</td><td>An absolute configured cap. Keep the flow curve within it.</td></tr>
+<tr><td>Flow headroom</td><td>Reduces the usable curve capacity. With 10% headroom, a measured 24 mm³/s supports up to <strong>21.6 mm³/s</strong>.</td></tr>
+<tr><td>Flow points</td><td>Use 2–12 increasing temperatures; flow capacity must not decrease. The first point must be at the minimum temperature. No extrapolation above the curve.</td></tr>
+<tr><td>Between measured points</td><td><strong>Linear estimate</strong> interpolates; <strong>Use the higher temperature point</strong> chooses the next hotter measured point.</td></tr>
+<tr><td>Try a flow</td><td>Previews the curve’s temperature estimate, including headroom. It does not operate the printer.</td></tr>
+</tbody></table>
+<p class="small"><strong>Advanced · motion model:</strong> enter the printer’s starting maximum velocity, acceleration, square corner velocity and minimum cruise ratio. G-code speed and acceleration commands update these limits. The planner models acceleration and deceleration; non-Klipper jerk behavior is not fully simulated.</p>
+<div class="footer">Adaptive Temperature · User guide · 3 / 13</div>
+</section>
+
+<section class="sheet" id="curve-tips">
+<span class="step">02 · Practical curve tips</span>
+<h2>Build on the filament settings you already trust</h2>
+<p class="lead">Start with 3–4 temperature targets and a reliable flow value for each.</p>
+<p>Spread the points across the temperature range you intend to print: one at the minimum, one or two intermediate targets, and one at the maximum. This gives the planner a useful scale for choosing temperatures as flow changes.</p>
+<h3>Already using several filament presets?</h3>
+<p>If you have presets that print reliably at different temperatures and maximum volumetric speeds, use their <strong>temperature + flow</strong> pairs as starting data points. Use presets for the same filament, hotend and nozzle combination.</p>
+<ol>
+<li>Read the normal printing temperature and maximum volumetric speed from each known preset. Flow is in <strong>mm³/s</strong>.</li>
+<li>Enter those pairs under <strong>Temperature / maximum reliable flow</strong>, ordered from coolest to hottest. Match the first point to your minimum temperature.</li>
+<li>Keep your chosen flow headroom and use <strong>Try a flow</strong> to check the resulting temperature scale.</li>
+<li>Complete heating/cooling calibration, apply the response and inspect an exported print before tuning burst aggressiveness.</li>
+</ol>
+<div class="note">An existing preset’s flow limit may be deliberately conservative. It can be a useful starting point without establishing the hotend’s absolute maximum. Extend the curve only with reliable testing of your own setup.</div>
+<h3>PLA curve examples</h3>
+<p>These supplied examples show how different hotends can use different curves. Treat them as setup-specific references and verify suitable values for your own filament, nozzle and hardware.</p>
+<div class="two">
+<div><h3>Stock Snapmaker U1 hotend</h3>
+<table class="compact"><thead><tr><th>Temperature</th><th>Reliable flow</th></tr></thead><tbody>
+<tr><td>210°C</td><td>15 mm³/s</td></tr>
+<tr><td>220°C</td><td>18 mm³/s</td></tr>
+<tr><td>230°C</td><td>20 mm³/s</td></tr>
+<tr><td>240°C</td><td>24 mm³/s</td></tr>
+</tbody></table></div>
+<div><h3>Pika with upgraded 88 W heater</h3>
+<table class="compact"><thead><tr><th>Temperature</th><th>Reliable flow</th></tr></thead><tbody>
+<tr><td>210°C</td><td>30 mm³/s</td></tr>
+<tr><td>220°C</td><td>38 mm³/s</td></tr>
+<tr><td>230°C</td><td>50 mm³/s</td></tr>
+<tr><td>245°C</td><td>75 mm³/s</td></tr>
+</tbody></table></div>
+</div>
+<p>With <strong>10% headroom</strong>, these example curves allow up to <strong>21.6 mm³/s</strong> and <strong>67.5 mm³/s</strong>, respectively. Enter the reliable flow values in the curve; the plugin applies headroom separately.</p>
+<p class="small">The flow-load test checks thermal tracking at the points you supply. Heating/cooling calibration supplies the predictive timing. Confirm printed quality across the intended range when consolidating several presets into one filament profile.</p>
+<div class="footer">Adaptive Temperature · User guide · 4 / 13</div>
+</section>
+
+<section class="sheet" id="connection">
+<span class="step">03 · Hotend calibration</span>
+<h2>Connect and position the tool</h2>
+<figure><a href="images/03-connection.png"><img src="images/03-connection.png" alt="Moonraker IP and separate port 7125, extruder and fan mappings, tool selection, and Move priority set to Y first then X."></a><figcaption>192.0.2.10 is a documentation-only IP address. Enter your printer’s actual IP.</figcaption></figure>
+<table class="compact"><thead><tr><th>Input</th><th>What to enter or do</th></tr></thead><tbody>
+<tr><td>Printer name / IP / Port</td><td>A printer label; IP address only, without <code>http://</code> or a port; Moonraker port, usually <strong>7125</strong>. Click <strong>Check</strong> to read connection status.</td></tr>
+<tr><td>Heater / extruder; part-fan object</td><td>The exact Klipper object names for the selected tool. <code>extruder</code>, <code>extruder1</code> and <code>fan</code> are examples; verify your printer’s configuration.</td></tr>
+<tr><td>Tool selection</td><td><strong>Already active</strong> for manual selection; <strong>Printer Tn command / macro</strong> for compatible toolchangers; the dedicated <strong>Snapmaker U1 · Tn A0</strong> option for U1.</td></tr>
+<tr><td>Move priority</td><td>Choose <strong>Y first, then X</strong> or <strong>X first, then Y</strong> to clear your dock or load position. Default Y-first is not a universal clearance guarantee.</td></tr>
+</tbody></table>
+<p>With the bed and tool-change path clear, use <strong>Position … at XY center / Z100 mm</strong>. It homes if needed, verifies Z clearance and tool selection, completes each axis leg separately, then reaches Z100. Reported travel must include Z100.</p>
+<p class="small">Position and Run use the settings currently shown; a separate save is unnecessary to enable them. Live tests extrude while XYZ is stationary, with the part fan off. Monitor collection space and clear accumulated extrusion between runs. Printing or paused jobs block calibration commands.</p>
+<div class="footer">Adaptive Temperature · User guide · 5 / 13</div>
+</section>
+
+<section class="sheet" id="load">
+<span class="step">04 · Hotend calibration</span>
+<h2>Check response under an extrusion load</h2>
+<p>Select <strong>Flow-load response</strong> and choose a temperature/flow point from your saved curve. Confirm that the selected tool has the intended filament loaded and can sustain that point, then click <strong>Run selected test</strong>.</p>
+<figure><a href="images/04-flow-load.png"><img src="images/04-flow-load.png" alt="Flow-load response selected with the example 220 degree C and 16 mm cubed per second curve point, plus Run selected test and Request stop."></a><figcaption>The flow point comes from the curve you entered. This picture uses illustrative values.</figcaption></figure>
+<h3>What the test does</h3>
+<table><thead><tr><th>Stage</th><th>Commanded load</th></tr></thead><tbody>
+<tr><td>First 5 seconds</td><td>25% of the selected point’s flow.</td></tr>
+<tr><td>Next 5 seconds</td><td>50% flow.</td></tr>
+<tr><td>Next 30 seconds</td><td>The full selected flow.</td></tr>
+<tr><td>Final 15 seconds</td><td>25% flow, followed by recovery and heater target off.</td></tr>
+</tbody></table>
+<p>The live graph shows measured nozzle temperature and target; the metrics show commanded flow and heater power. Completed results report the observed temperature range and mean heater power during the full-flow segment.</p>
+<div class="note"><strong>What this establishes:</strong> sensor tracking, thermal sag and recovery at a supplied flow point. It does not measure actual delivered filament, find the failure threshold automatically, or qualify printed strength and appearance.</div>
+<h3>After each run</h3>
+<ol>
+<li>Wait until the status completes and cleanup finishes.</li>
+<li>Inspect the extrusion and temperature behavior. Clear the collection area.</li>
+<li>Repeat relevant curve points if needed, then run the heating/cooling test to identify the timing values used by the predictor.</li>
+</ol>
+<p class="small"><strong>Request stop</strong> is cooperative. A flow-load batch can take up to 60 seconds to finish queued extrusion. Keep Orca open until cleanup completes; tests finish with the heater target off.</p>
+<div class="footer">Adaptive Temperature · User guide · 6 / 13</div>
+</section>
+
+<section class="sheet" id="response">
+<span class="step">05 · Hotend calibration</span>
+<h2>Measure heating and cooling at constant flow</h2>
+<p>Choose <strong>Heating / cooling at constant flow</strong>. Use a flow that is supported at the <em>baseline</em> temperature after headroom is applied.</p>
+<figure><a href="images/05-response-test.png"><img src="images/05-response-test.png" alt="Response test inputs: 12 mm cubed per second, baseline 220 C, step 230 C and stability tolerance 0.5 percent; the allowed baseline flow and test protocol appear below."></a><figcaption>Example: 12 mm³/s is below this example curve’s 14.4 mm³/s permitted capacity at 220°C.</figcaption></figure>
+<table class="compact"><thead><tr><th>Input</th><th>How to choose it</th></tr></thead><tbody>
+<tr><td>Response-test flow</td><td>A sustainable loaded flow within the displayed baseline limit. Keep this load constant during the temperature steps.</td></tr>
+<tr><td>Baseline / step temperature</td><td>Two temperatures within your bounds. The step must be at least 2°C and at least four times the largest selected tolerance band.</td></tr>
+<tr><td>Stability tolerance</td><td>0.05–1% of each target in degrees Celsius; default <strong>0.5%</strong>. At 220°C that is ±1.10°C; at 230°C, ±1.15°C.</td></tr>
+</tbody></table>
+<p>Click <strong>Run selected test</strong>. The runner warms up, establishes stable temperature under flow, steps up, then steps back down. Each loaded phase needs 20 seconds inside the tolerance band and drift no faster than 0.03°C/s.</p>
+<p class="small">Minimum loaded phases are 30 / 35 / 40 seconds; each can extend to 120 seconds. A timeout fails the run and turns the heater target off. Choose a tolerance that accommodates normal PID variation while retaining a meaningful temperature step. The response test uses a short motion queue for continuous flow.</p>
+<div class="footer">Adaptive Temperature · User guide · 7 / 13</div>
+</section>
+
+<section class="sheet" id="results">
+<span class="step">06 · Hotend calibration</span>
+<h2>Read the live graph and completed results</h2>
+<figure><a href="images/06-results.png"><img src="images/06-results.png" alt="Simulated completed heating and cooling test: solid measured temperature follows dashed target; a full-run overview sits below, and both heating and cooling times to 95 percent appear in Measured results."></a><figcaption>Simulated response. The main graph excludes cold warmup; the overview retains the whole run.</figcaption></figure>
+<table class="compact"><thead><tr><th>Display</th><th>How to read it</th></tr></thead><tbody>
+<tr><td>Solid / dashed lines</td><td>Measured nozzle sensor temperature / commanded target.</td></tr>
+<tr><td>Graph view</td><td><strong>Auto</strong> follows the active phase with preceding context; on completion it shows the loaded response. Choose <strong>Entire calibration response</strong> or <strong>Full run including warmup</strong> for a fixed view.</td></tr>
+<tr><td>Time to 95%</td><td>A summary of each fitted temperature transition. Both heating and cooling need usable fits.</td></tr>
+</tbody></table>
+<div class="note"><strong>COMPLETE describes the run, not automatic fit approval.</strong> If either direction reports “baseline still drifting” or another identification problem instead of a time, resolve that condition and repeat the response test.</div>
+<p>Click <strong>Export results JSON</strong> to retain raw telemetry and analysis. Next, apply the fitted response on Slice analysis; completing the test alone does not apply it to G-code scheduling.</p>
+<div class="footer">Adaptive Temperature · User guide · 8 / 13</div>
+</section>
+
+<section class="sheet" id="apply">
+<span class="step">07 · Slice analysis</span>
+<h2>Apply the response to the selected tool</h2>
+<ol>
+<li>Open <strong>Slice analysis</strong> and keep the intended tool selected under Printer tools.</li>
+<li>Under <strong>Calibrated hotend response</strong>, click <strong>Use latest recorded response</strong>.</li>
+<li>Review the populated heating and cooling values and response source.</li>
+<li>Click <strong>Save output settings</strong> to persist the response with this setup.</li>
+</ol>
+<figure><a href="images/07-adopt-response.png"><img src="images/07-adopt-response.png" alt="Calibrated hotend response with illustrative heating delay 2 seconds, time constant 2.7, cooling delay 3, time constant 3.2; Use latest recorded response and Save output settings buttons."></a><figcaption>Illustrative fitted values. Use your own recorded response rather than the numbers pictured.</figcaption></figure>
+<table><thead><tr><th>Value</th><th>Meaning</th></tr></thead><tbody>
+<tr><td>Delay</td><td>The fitted time before the temperature response begins.</td></tr>
+<tr><td>Time constant</td><td>How quickly the response approaches its target after the delay.</td></tr>
+<tr><td>95% horizon</td><td>Approximately <strong>delay + 3 × time constant</strong>. Heating and cooling have separate horizons.</td></tr>
+</tbody></table>
+<p><strong>Do not enter the “seconds to 95%” result as the time constant.</strong> The load button transfers the separate fitted terms correctly. <strong>Bind entered values to this setup</strong> is for users who already have appropriate measured delay and time-constant values.</p>
+<p class="small">Use the recorded response during the calibration session, then save it and export a settings backup. Saved response settings persist; the latest-recording list is not an automatic cross-version archive of old sessions. The model describes the closed-loop nozzle sensor response under the tested conditions, not direct polymer melt temperature.</p>
+<div class="footer">Adaptive Temperature · User guide · 9 / 13</div>
+</section>
+
+<section class="sheet" id="burst">
+<span class="step">08 · Slice analysis</span>
+<h2>Set output mode and burst behavior</h2>
+<figure><a href="images/08-output-burst.png"><img src="images/08-output-burst.png" alt="Adaptive temperature M104 output selected, hybrid predictive planner, an unlisted hotend with no burst allowance, and burst aggressiveness at zero."></a><figcaption>The saved output notice confirms whether export will insert commands. Save after changing the mode.</figcaption></figure>
+<table class="compact"><thead><tr><th>Setting</th><th>Recommended starting approach</th></tr></thead><tbody>
+<tr><td>G-code output</td><td>Use <strong>Analyze only</strong> while setting up. Select <strong>Adaptive temperature · insert M104 commands</strong> when ready, then click <strong>Save output settings</strong>.</td></tr>
+<tr><td>Temperature planner</td><td>Use <strong>Hybrid average · predictive heating and cooling</strong> for the calibrated response workflow.</td></tr>
+<tr><td>Hotend geometry preset</td><td>Find the matching geometry. Use the unlisted/no-allowance option if it is unknown. A preset does not populate or replace your flow curve or response calibration.</td></tr>
+<tr><td>Burst aggressiveness</td><td>Start at <strong>0</strong> as a conservative baseline. Increase gradually after evaluating print quality. Higher values allow more estimated reserve for brief demand peaks and can permit earlier temperature reductions.</td></tr>
+</tbody></table>
+<p>Keep temperature, flow limits and headroom appropriate for each tool. A small melt zone and a long melt zone may need different slider settings. Zero removes modeled reserve spending; it leaves adaptive temperature scheduling active.</p>
+<p class="small">Burst reserve is estimated from hotend geometry, not measured usable melt inventory. The slider is not a temperature percentage. Reference data: Robert Samples, <a href="https://meltcalc.baconmilkshake.com/">MeltCalc</a>, <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>; geometry adapted by Adaptive Temperature. Limits still apply at every slider setting.</p>
+<div class="footer">Adaptive Temperature · User guide · 10 / 13</div>
+</section>
+
+<section class="sheet" id="export">
+<span class="step">09 · Export and inspect</span>
+<h2>Verify the processed G-code</h2>
+<ol>
+<li>Under <strong>Process → Others → Slicing Pipeline Plugin</strong>, confirm <strong>Adaptive Temperature — slice analysis</strong> is listed. If needed, click <strong>+ Add plugin</strong> to select it. Slice the plate with the intended printer, nozzle, filament and tool mapping.</li>
+<li>On Slice analysis, save the desired output mode. Read the <strong>Saved output mode</strong> notice before exporting.</li>
+<li><strong>Export G-code to a file.</strong> This runs the plugin’s processing hook.</li>
+<li>Return to Slice analysis and click <strong>Refresh analysis</strong>. Inspect Latest exported plate and Generated temperature commands.</li>
+<li>Open that exported file in Orca’s <strong>G-code viewer</strong> and select the <strong>Temperature</strong> color scheme. Inspect the output before printing it.</li>
+</ol>
+<figure><a href="images/09-export.png"><img src="images/09-export.png" alt="Simulated exported plate report with planned and requested flow peaks, adaptive output confirmation, and M104 T0 command examples."></a><figcaption>Illustrative export report. An edited export lists tool-specific M104 commands and their setpoint range.</figcaption></figure>
+<div class="note"><strong>The existing slice Preview does not refresh from post-processing.</strong> To see scheduled setpoints, load the exported G-code. Direct upload is blocked in adaptive output mode; use file export, or Analyze only for the current upload integration.</div>
+<table class="compact"><thead><tr><th>Result</th><th>What it means</th></tr></thead><tbody>
+<tr><td>Requested / planned peak</td><td>Requested flow from feed commands / forecast flow after the motion model accounts for acceleration and related limits.</td></tr>
+<tr><td>Curve estimate at peak</td><td>The curve’s temperature for that planned peak; it is not a claim that every move receives that setpoint.</td></tr>
+<tr><td>M104 commands</td><td>Nonblocking temperature targets inserted after the first layer. Existing startup, heater, tool-change and shutdown commands remain present.</td></tr>
+</tbody></table>
+<p class="small">Preview colors show commanded setpoints. Predictive cooling can lower a setpoint while the modeled nozzle is still hot. Forecast average flow is not instantaneous melt flow. Unknown macros, waits and tool changes limit prediction across those boundaries; validate output under your printer’s actual conditions.</p>
+<div class="footer">Adaptive Temperature · User guide · 11 / 13</div>
+</section>
+
+<section class="sheet" id="tools">
+<span class="step">10 · Multiple tools and backups</span>
+<h2>Use the right calibration for every tool</h2>
+<p>In <strong>Toolchanger</strong> mode, configure up to four tools. The Editing / calibrating selection chooses which profile you are changing; it does not restrict export to only that tool.</p>
+<figure><a href="images/10-tools.png"><img src="images/10-tools.png" alt="Toolchanger with four tools, editing T1, Copy calibration from T0, and Copy to selected tool."></a><figcaption>Copy direction: the source dropdown → the currently selected Editing / calibrating tool.</figcaption></figure>
+<h3>Different hardware or filament</h3>
+<ol>
+<li>Select each tool in turn. Enter its nozzle, filament, flow curve and heater/fan mappings.</li>
+<li>Calibrate one tool at a time, apply its response and save.</li>
+<li>Set its geometry preset and burst aggressiveness independently.</li>
+</ol>
+<p>During a multicolor or multi-tool export, the plugin schedules every supported used tool after the first layer using its own calibration. If a used tool has missing or mismatched data, export is refused rather than quietly using another tool’s curve.</p>
+<h3>Identical setups: copy calibration</h3>
+<ol>
+<li>Finish and save calibration for the source tool.</li>
+<li>Choose the destination under <strong>Editing / calibrating</strong>.</li>
+<li>Choose the source under <strong>Copy calibration from</strong>, then click <strong>Copy to selected tool</strong>.</li>
+<li>Review the destination mapping and save settings.</li>
+</ol>
+<p>Copy only between matching hotend, nozzle and filament combinations. The destination retains its own tool indices, heater, fan and selection mapping. Copied data is marked as inherited; it was not independently measured on that tool.</p>
+<h3>Back up or upgrade</h3>
+<p>At the bottom of Filament curve, click <strong>Export settings</strong>. Also keep <strong>Export results JSON</strong> from calibration. Before upgrading, export settings and disable the older pipeline capability so two versions do not process the same file.</p>
+<p>Install the new wheel, enable its Pages and pipeline capabilities, <strong>Import settings</strong>, review mappings and save. Import keeps calibration and resets output to <strong>Analyze only</strong>; explicitly select and save adaptive output when ready.</p>
+<p class="small">Settings backups contain the printer details you entered. Review them before public sharing. This guide contains only generic examples.</p>
+<div class="footer">Adaptive Temperature · User guide · 12 / 13</div>
+</section>
+
+<section class="sheet" id="help">
+<span class="step">11 · Troubleshooting</span>
+<h2>When something does not look right</h2>
+<table><thead><tr><th>Symptom</th><th>Check or action</th></tr></thead><tbody>
+<tr><td>No temperature edits</td><td>Read <strong>Saved output mode</strong>. Select adaptive output and save it. Under <strong>Process → Others → Slicing Pipeline Plugin</strong>, use <strong>+ Add plugin</strong> to add Adaptive Temperature — slice analysis if missing. Export a new file, then refresh analysis.</td></tr>
+<tr><td>Old colors in Preview</td><td>Open the newly exported G-code in the G-code viewer and choose Temperature. The original slice preview is unchanged.</td></tr>
+<tr><td>Run is disabled</td><td>Read the reason beside Run. Check IP/port, tool mappings, temperature bounds and baseline flow capacity including headroom. Run applies the shown settings; saving connection first is not required.</td></tr>
+<tr><td>Check cannot connect</td><td>Use an IP-only value and a separate port. Confirm Moonraker is reachable from this PC. A working server connection with missing tool telemetry usually indicates a heater-object mapping problem.</td></tr>
+<tr><td>Tests cannot run in preview</td><td>The standalone preview HTML is deliberately disconnected. Run live calibration inside the installed Orca plugin on Windows.</td></tr>
+<tr><td>Stability timeout / missing fit</td><td>Review the graph and exported results. Check that the flow is sustainable, the targets are separated sufficiently, and tolerance accommodates normal PID variation. Both response directions need fits.</td></tr>
+<tr><td>Nozzle / material / binding mismatch</td><td>Select the matching tool profile or calibrate the actual installed setup. Correct nozzle and material fields; do not relabel another setup’s calibration to bypass the check.</td></tr>
+<tr><td>Flow exceeds the curve</td><td>Reduce requested flow in the print or establish new reliable curve points within the hardware/material limits. Headroom lowers usable capacity. The plugin stops export rather than silently clipping the requirement.</td></tr>
+<tr><td>Temperatures fall too readily</td><td>Reduce burst aggressiveness toward 0 for that tool. Confirm the low-temperature curve points are reliable for the desired print quality and that the correct response was applied.</td></tr>
+<tr><td>A test fails or needs stopping</td><td>Use Request stop and monitor the printer while queued commands finish. Keep Orca open for cleanup. Read the reported error and export results for diagnosis before repeating.</td></tr>
+</tbody></table>
+<h3>Units at a glance</h3>
+<p><strong>Flow:</strong> mm³/s, not filament mm/s. <strong>Temperature:</strong> °C. <strong>Delay / time constant:</strong> seconds. <strong>Velocity / corner velocity:</strong> mm/s. <strong>Acceleration:</strong> mm/s². <strong>Stability:</strong> percent of the target in °C. <strong>Burst slider:</strong> 0–100 scheduling aggressiveness, not a percentage temperature change.</p>
+<p class="small">The plugin estimates commanded extrusion and nozzle sensor response; it does not directly measure delivered melt. Firmware planner differences, pressure advance, runtime overrides, macros and fan conditions can affect predictions. These instructions describe Adaptive Temperature 0.5.8; use the accompanying README for integration and license details.</p>
+<div class="footer">Adaptive Temperature · User guide · 13 / 13</div>
+</section>
+</body>
+</html>

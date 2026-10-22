@@ -1,0 +1,963 @@
+{
+  "schema_version": 1,
+  "creator": "Robert Samples",
+  "project": "MeltCalc",
+  "license": "CC-BY-4.0",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "source_url": "https://github.com/robertsamples/meltcalc/blob/e6bc61fef79f0da85e84977a878dd74d545b25b3/data/hotend%20data.csv",
+  "source_commit": "e6bc61fef79f0da85e84977a878dd74d545b25b3",
+  "source_csv_sha256": "dc1de5400dca8a0bdb9c156f0c780117f2f01f8a44a21f949bfd0fa34e21c6ee",
+  "modifications": "Selected columns normalized to JSON; stable identifiers added. Burst policy is an independent, unvalidated Adaptive Temperature heuristic.",
+  "hotends": [
+    {
+      "id": "a3dp-he20",
+      "manufacturer": "A3DP",
+      "name": "HE20",
+      "physical_length_mm": 26.0,
+      "effective_length_mm": 26.0,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": ""
+    },
+    {
+      "id": "a3dp-he50",
+      "manufacturer": "A3DP",
+      "name": "HE50",
+      "physical_length_mm": 53.0,
+      "effective_length_mm": 53.0,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": ""
+    },
+    {
+      "id": "bambulab-a1-hotend",
+      "manufacturer": "Bambulab",
+      "name": "A1 Hotend",
+      "physical_length_mm": 27.2,
+      "effective_length_mm": 27.2,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": "Integrated nozzle"
+    },
+    {
+      "id": "bambulab-h2-hotend",
+      "manufacturer": "Bambulab",
+      "name": "H2 Hotend",
+      "physical_length_mm": 33.0,
+      "effective_length_mm": 33.0,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": "Integrated nozzle"
+    },
+    {
+      "id": "bambulab-x1c-oem",
+      "manufacturer": "Bambulab",
+      "name": "X1C OEM",
+      "physical_length_mm": 24.2,
+      "effective_length_mm": 24.2,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": "Integrated nozzle"
+    },
+    {
+      "id": "bondtech-indx",
+      "manufacturer": "Bondtech",
+      "name": "INDX",
+      "physical_length_mm": 28.0,
+      "effective_length_mm": 28.0,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": "Integrated nozzle"
+    },
+    {
+      "id": "brumpo-tungus-brumpo-hotend",
+      "manufacturer": "Brumpo Tungus",
+      "name": "Brumpo Hotend",
+      "physical_length_mm": 74.5,
+      "effective_length_mm": 74.5,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": "DIY SLM hotend"
+    },
+    {
+      "id": "brumpo-tungus-brumpo-wc-hotend",
+      "manufacturer": "Brumpo Tungus",
+      "name": "Brumpo WC Hotend",
+      "physical_length_mm": 50.0,
+      "effective_length_mm": 50.0,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": "DIY SLM hotend"
+    },
+    {
+      "id": "causality-manufacturing-vesivius",
+      "manufacturer": "Causality Manufacturing",
+      "name": "Vesivius",
+      "physical_length_mm": 92.0,
+      "effective_length_mm": 92.0,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": "Unreleased"
+    },
+    {
+      "id": "creality-k2-plus",
+      "manufacturer": "Creality",
+      "name": "K2 Plus",
+      "physical_length_mm": 38.0,
+      "effective_length_mm": 38.0,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": "Proprietary Integrated nozzle"
+    },
+    {
+      "id": "creality-spider-speedy",
+      "manufacturer": "Creality",
+      "name": "Spider Speedy",
+      "physical_length_mm": 25.0,
+      "effective_length_mm": 25.0,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": ""
+    },
+    {
+      "id": "creality-spider-v1",
+      "manufacturer": "Creality",
+      "name": "Spider V1",
+      "physical_length_mm": 21.2,
+      "effective_length_mm": 21.2,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": "discontinued"
+    },
+    {
+      "id": "creality-spider-v3",
+      "manufacturer": "Creality",
+      "name": "Spider V3",
+      "physical_length_mm": 27.8,
+      "effective_length_mm": 27.8,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": "discontinued"
+    },
+    {
+      "id": "diy-lattice-hotend",
+      "manufacturer": "DIY",
+      "name": "Lattice Hotend",
+      "physical_length_mm": 57.9,
+      "effective_length_mm": 57.9,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": "DIY SLM hotend"
+    },
+    {
+      "id": "dyze-dyzend-pro",
+      "manufacturer": "Dyze",
+      "name": "DyzEnd Pro",
+      "physical_length_mm": 19.5,
+      "effective_length_mm": 19.5,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": "Proprietary nozzle"
+    },
+    {
+      "id": "dyze-dyzend-x",
+      "manufacturer": "Dyze",
+      "name": "DyzEnd-X",
+      "physical_length_mm": 19.5,
+      "effective_length_mm": 19.5,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": "Proprietary nozzle"
+    },
+    {
+      "id": "dyze-typhoon",
+      "manufacturer": "Dyze",
+      "name": "Typhoon",
+      "physical_length_mm": 114.0,
+      "effective_length_mm": 114.0,
+      "filament_diameter_mm": 2.85,
+      "filament_paths": 1,
+      "notes": "Proprietary nozzle"
+    },
+    {
+      "id": "e3d-a1-hf-obxidian",
+      "manufacturer": "E3D",
+      "name": "A1 HF ObXidian",
+      "physical_length_mm": 27.2,
+      "effective_length_mm": 35.7,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": "Integrated nozzle, CHT"
+    },
+    {
+      "id": "e3d-revo",
+      "manufacturer": "E3D",
+      "name": "Revo",
+      "physical_length_mm": 19.6,
+      "effective_length_mm": 19.6,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": "Proprietary Revo nozzle"
+    },
+    {
+      "id": "e3d-supervolcano",
+      "manufacturer": "E3D",
+      "name": "Supervolcano",
+      "physical_length_mm": 57.5,
+      "effective_length_mm": 57.5,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": "Official product, discontinued"
+    },
+    {
+      "id": "e3d-v6",
+      "manufacturer": "E3D",
+      "name": "V6",
+      "physical_length_mm": 17.5,
+      "effective_length_mm": 17.5,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": "Official product"
+    },
+    {
+      "id": "e3d-v6-volcano",
+      "manufacturer": "E3D",
+      "name": "V6 Volcano",
+      "physical_length_mm": 26.0,
+      "effective_length_mm": 26.0,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": "Official product"
+    },
+    {
+      "id": "elegoo-centauri-carbon",
+      "manufacturer": "Elegoo",
+      "name": "Centauri Carbon",
+      "physical_length_mm": 35.5,
+      "effective_length_mm": 35.5,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": "Proprietary nozzle"
+    },
+    {
+      "id": "elegoo-neptune-2",
+      "manufacturer": "Elegoo",
+      "name": "Neptune 2",
+      "physical_length_mm": 18.5,
+      "effective_length_mm": 18.5,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": "PFTE-lined"
+    },
+    {
+      "id": "elegoo-neptune-3",
+      "manufacturer": "Elegoo",
+      "name": "Neptune 3",
+      "physical_length_mm": 18.5,
+      "effective_length_mm": 18.5,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": "PFTE-lined"
+    },
+    {
+      "id": "elegoo-neptune-3-pro",
+      "manufacturer": "Elegoo",
+      "name": "Neptune 3 Pro",
+      "physical_length_mm": 18.5,
+      "effective_length_mm": 18.5,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": "PFTE-lined"
+    },
+    {
+      "id": "elegoo-neptune-4",
+      "manufacturer": "Elegoo",
+      "name": "Neptune 4",
+      "physical_length_mm": 23.5,
+      "effective_length_mm": 23.5,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": ""
+    },
+    {
+      "id": "elegoo-neptune-4-plus-max",
+      "manufacturer": "Elegoo",
+      "name": "Neptune 4 Plus/Max",
+      "physical_length_mm": 28.0,
+      "effective_length_mm": 28.0,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": ""
+    },
+    {
+      "id": "elegoo-orangestorm-giga",
+      "manufacturer": "Elegoo",
+      "name": "Orangestorm Giga",
+      "physical_length_mm": 39.5,
+      "effective_length_mm": 39.5,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": "Proprietary nozzle"
+    },
+    {
+      "id": "generic-mk8",
+      "manufacturer": "Generic",
+      "name": "MK8",
+      "physical_length_mm": 18.8,
+      "effective_length_mm": 18.8,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": ""
+    },
+    {
+      "id": "generic-supervolcano-clone",
+      "manufacturer": "Generic",
+      "name": "Supervolcano  Clone",
+      "physical_length_mm": 57.5,
+      "effective_length_mm": 57.5,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": "Clone"
+    },
+    {
+      "id": "generic-tricorn",
+      "manufacturer": "Generic",
+      "name": "Tricorn",
+      "physical_length_mm": 53.0,
+      "effective_length_mm": 53.0,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": ""
+    },
+    {
+      "id": "generic-tz-hf-mze-plus-v6",
+      "manufacturer": "Generic",
+      "name": "TZ HF (MZE+V6)",
+      "physical_length_mm": 34.5,
+      "effective_length_mm": 34.5,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": "MZE+V6 nozzle addition"
+    },
+    {
+      "id": "generic-tz-hotends",
+      "manufacturer": "Generic",
+      "name": "TZ Hotends",
+      "physical_length_mm": 24.2,
+      "effective_length_mm": 24.2,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": ""
+    },
+    {
+      "id": "generic-tz2-0-v6",
+      "manufacturer": "Generic",
+      "name": "TZ2.0-V6",
+      "physical_length_mm": 25.35,
+      "effective_length_mm": 25.35,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": ""
+    },
+    {
+      "id": "generic-tz2-0-v6-hf-mze-plus-v6",
+      "manufacturer": "Generic",
+      "name": "TZ2.0-V6 HF (MZE+V6)",
+      "physical_length_mm": 35.65,
+      "effective_length_mm": 35.65,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": "MZE+V6 nozzle addition"
+    },
+    {
+      "id": "generic-v6-clone",
+      "manufacturer": "Generic",
+      "name": "V6 Clone",
+      "physical_length_mm": 17.5,
+      "effective_length_mm": 17.5,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": "Clone"
+    },
+    {
+      "id": "generic-v6-volcano-clone",
+      "manufacturer": "Generic",
+      "name": "V6 Volcano  Clone",
+      "physical_length_mm": 26.0,
+      "effective_length_mm": 26.0,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": "Clone"
+    },
+    {
+      "id": "lukes-lab-chube-air",
+      "manufacturer": "Lukes Lab",
+      "name": "Chube Air",
+      "physical_length_mm": 46.0,
+      "effective_length_mm": 46.0,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": ""
+    },
+    {
+      "id": "lukes-lab-chube-compact",
+      "manufacturer": "Lukes Lab",
+      "name": "Chube Compact",
+      "physical_length_mm": 38.5,
+      "effective_length_mm": 38.5,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": ""
+    },
+    {
+      "id": "lukes-lab-chube-conduction",
+      "manufacturer": "Lukes Lab",
+      "name": "Chube Conduction",
+      "physical_length_mm": 56.0,
+      "effective_length_mm": 56.0,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": ""
+    },
+    {
+      "id": "lukes-lab-pika-u1",
+      "manufacturer": "Lukes Lab",
+      "name": "Pika (U1)",
+      "physical_length_mm": 35.6,
+      "effective_length_mm": 35.6,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": "Fin nozzle, 4 pack pricing"
+    },
+    {
+      "id": "lukes-lab-pika-x1c",
+      "manufacturer": "Lukes Lab",
+      "name": "Pika (X1C)",
+      "physical_length_mm": 33.0,
+      "effective_length_mm": 33.0,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": "Fin nozzle"
+    },
+    {
+      "id": "mellow-alps",
+      "manufacturer": "Mellow",
+      "name": "ALPS",
+      "physical_length_mm": 38.2,
+      "effective_length_mm": 38.2,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": ""
+    },
+    {
+      "id": "mellow-dual-velo",
+      "manufacturer": "Mellow",
+      "name": "Dual Velo",
+      "physical_length_mm": 51.8,
+      "effective_length_mm": 88.6,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 2,
+      "notes": "Proprietary nozzle (brass only) \u00b7 2 filaments"
+    },
+    {
+      "id": "mellow-fluxheat",
+      "manufacturer": "Mellow",
+      "name": "Fluxheat",
+      "physical_length_mm": 34.3,
+      "effective_length_mm": 34.3,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": ""
+    },
+    {
+      "id": "mellow-goliath",
+      "manufacturer": "Mellow",
+      "name": "Goliath",
+      "physical_length_mm": 51.15,
+      "effective_length_mm": 51.15,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": ""
+    },
+    {
+      "id": "mellow-nf-crazy",
+      "manufacturer": "Mellow",
+      "name": "NF Crazy",
+      "physical_length_mm": 18.5,
+      "effective_length_mm": 18.5,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": ""
+    },
+    {
+      "id": "mellow-nf-crazy-hf",
+      "manufacturer": "Mellow",
+      "name": "NF Crazy HF",
+      "physical_length_mm": 25.0,
+      "effective_length_mm": 25.0,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": ""
+    },
+    {
+      "id": "mellow-nf-crazy-hf-volcano",
+      "manufacturer": "Mellow",
+      "name": "NF Crazy HF Volcano",
+      "physical_length_mm": 34.5,
+      "effective_length_mm": 34.5,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": ""
+    },
+    {
+      "id": "mellow-nf-crazy-volcano",
+      "manufacturer": "Mellow",
+      "name": "NF Crazy Volcano",
+      "physical_length_mm": 28.0,
+      "effective_length_mm": 28.0,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": ""
+    },
+    {
+      "id": "metaform-pico-hotend",
+      "manufacturer": "Metaform",
+      "name": "Pico Hotend",
+      "physical_length_mm": 20.55,
+      "effective_length_mm": 20.55,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": ""
+    },
+    {
+      "id": "microswiss-flowtech",
+      "manufacturer": "Microswiss",
+      "name": "Flowtech",
+      "physical_length_mm": 28.6,
+      "effective_length_mm": 28.6,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": "Proprietary nozzle"
+    },
+    {
+      "id": "microswiss-microswiss-all-metal",
+      "manufacturer": "Microswiss",
+      "name": "Microswiss All Metal",
+      "physical_length_mm": 19.0,
+      "effective_length_mm": 19.0,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": "Ti heatbreak"
+    },
+    {
+      "id": "microswiss-microswiss-h2-hf",
+      "manufacturer": "Microswiss",
+      "name": "Microswiss H2 HF",
+      "physical_length_mm": 33.0,
+      "effective_length_mm": 41.5,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": "Integrated nozzle, CHT"
+    },
+    {
+      "id": "monika-mcwuff-pawsitron-hotend",
+      "manufacturer": "Monika McWuff",
+      "name": "Pawsitron Hotend",
+      "physical_length_mm": 51.3,
+      "effective_length_mm": 160.2,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 4,
+      "notes": "4 filaments \u00b7 DIY SLM hotend"
+    },
+    {
+      "id": "peopoly-lancer-long",
+      "manufacturer": "Peopoly",
+      "name": "Lancer Long",
+      "physical_length_mm": 45.0,
+      "effective_length_mm": 45.0,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": ""
+    },
+    {
+      "id": "peopoly-lancer-short",
+      "manufacturer": "Peopoly",
+      "name": "Lancer Short",
+      "physical_length_mm": 28.0,
+      "effective_length_mm": 28.0,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": ""
+    },
+    {
+      "id": "peopoly-lancer-standard",
+      "manufacturer": "Peopoly",
+      "name": "Lancer Standard",
+      "physical_length_mm": 36.5,
+      "effective_length_mm": 36.5,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": ""
+    },
+    {
+      "id": "phaetus-dragon-hf",
+      "manufacturer": "Phaetus",
+      "name": "Dragon HF",
+      "physical_length_mm": 26.0,
+      "effective_length_mm": 26.0,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": ""
+    },
+    {
+      "id": "phaetus-dragon-st",
+      "manufacturer": "Phaetus",
+      "name": "Dragon ST",
+      "physical_length_mm": 18.5,
+      "effective_length_mm": 18.5,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": ""
+    },
+    {
+      "id": "phaetus-dragon-uhf",
+      "manufacturer": "Phaetus",
+      "name": "Dragon UHF",
+      "physical_length_mm": 35.5,
+      "effective_length_mm": 35.5,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": ""
+    },
+    {
+      "id": "phaetus-dragon-uuhf",
+      "manufacturer": "Phaetus",
+      "name": "Dragon UUHF",
+      "physical_length_mm": 43.0,
+      "effective_length_mm": 43.0,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": "Unofficial, UHF w/ HF HB"
+    },
+    {
+      "id": "phaetus-dragon-volcano",
+      "manufacturer": "Phaetus",
+      "name": "Dragon Volcano",
+      "physical_length_mm": 34.5,
+      "effective_length_mm": 34.5,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": "Unofficial, UHF w/o MZE"
+    },
+    {
+      "id": "phaetus-dragonfly-bmo",
+      "manufacturer": "Phaetus",
+      "name": "Dragonfly BMO",
+      "physical_length_mm": 19.5,
+      "effective_length_mm": 19.5,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": "discontinued"
+    },
+    {
+      "id": "phaetus-dragonfly-bms",
+      "manufacturer": "Phaetus",
+      "name": "Dragonfly BMS",
+      "physical_length_mm": 35.0,
+      "effective_length_mm": 35.0,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": ""
+    },
+    {
+      "id": "phaetus-dragonfly-hic",
+      "manufacturer": "Phaetus",
+      "name": "Dragonfly HIC",
+      "physical_length_mm": 26.0,
+      "effective_length_mm": 26.0,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": "discontinued"
+    },
+    {
+      "id": "phaetus-dropeffect-nextg",
+      "manufacturer": "Phaetus",
+      "name": "Dropeffect neXtG",
+      "physical_length_mm": 25.0,
+      "effective_length_mm": 25.0,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": ""
+    },
+    {
+      "id": "phaetus-dropeffect-xg",
+      "manufacturer": "Phaetus",
+      "name": "Dropeffect XG",
+      "physical_length_mm": 18.0,
+      "effective_length_mm": 18.0,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": ""
+    },
+    {
+      "id": "phaetus-rapido-hf",
+      "manufacturer": "Phaetus",
+      "name": "Rapido HF",
+      "physical_length_mm": 25.5,
+      "effective_length_mm": 25.5,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": ""
+    },
+    {
+      "id": "phaetus-rapido-uhf",
+      "manufacturer": "Phaetus",
+      "name": "Rapido UHF",
+      "physical_length_mm": 34.0,
+      "effective_length_mm": 34.0,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": ""
+    },
+    {
+      "id": "plasmics-ino-trident",
+      "manufacturer": "Plasmics",
+      "name": "INo Trident",
+      "physical_length_mm": 17.5,
+      "effective_length_mm": 17.5,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": ""
+    },
+    {
+      "id": "prusa-nextruder-hotend",
+      "manufacturer": "Prusa",
+      "name": "Nextruder Hotend",
+      "physical_length_mm": 20.9,
+      "effective_length_mm": 20.9,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": "Proprietary Integrated nozzle"
+    },
+    {
+      "id": "qidi-xmax-3",
+      "manufacturer": "Qidi",
+      "name": "Xmax 3",
+      "physical_length_mm": 23.7,
+      "effective_length_mm": 23.7,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": "Proprietary nozzle"
+    },
+    {
+      "id": "slice-engineering-copperhead",
+      "manufacturer": "Slice Engineering",
+      "name": "Copperhead",
+      "physical_length_mm": 19.5,
+      "effective_length_mm": 19.5,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": ""
+    },
+    {
+      "id": "slice-engineering-mosquito",
+      "manufacturer": "Slice Engineering",
+      "name": "Mosquito",
+      "physical_length_mm": 18.5,
+      "effective_length_mm": 18.5,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": ""
+    },
+    {
+      "id": "slice-engineering-mosquito-magnum",
+      "manufacturer": "Slice Engineering",
+      "name": "Mosquito Magnum",
+      "physical_length_mm": 25.0,
+      "effective_length_mm": 25.0,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": ""
+    },
+    {
+      "id": "slice-engineering-mosquito-magnum-plus",
+      "manufacturer": "Slice Engineering",
+      "name": "Mosquito Magnum+",
+      "physical_length_mm": 38.7,
+      "effective_length_mm": 38.7,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": ""
+    },
+    {
+      "id": "slice-engineering-mosquito-magnum-plus-hf",
+      "manufacturer": "Slice Engineering",
+      "name": "Mosquito Magnum+ HF",
+      "physical_length_mm": 45.2,
+      "effective_length_mm": 45.2,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": "Unofficial, UHF w/ HF HB"
+    },
+    {
+      "id": "slice-engineering-mosquito-prime",
+      "manufacturer": "Slice Engineering",
+      "name": "Mosquito Prime",
+      "physical_length_mm": 66.7,
+      "effective_length_mm": 76.3,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": "Built in HF geometry"
+    },
+    {
+      "id": "snapmaker-u1-oem",
+      "manufacturer": "Snapmaker",
+      "name": "U1 OEM",
+      "physical_length_mm": 24.2,
+      "effective_length_mm": 24.2,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": "4 pack pricing"
+    },
+    {
+      "id": "trianglelab-chc",
+      "manufacturer": "Trianglelab",
+      "name": "CHC",
+      "physical_length_mm": 19.5,
+      "effective_length_mm": 19.5,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": "various mounting options"
+    },
+    {
+      "id": "trianglelab-chc-pro",
+      "manufacturer": "Trianglelab",
+      "name": "CHC Pro",
+      "physical_length_mm": 26.0,
+      "effective_length_mm": 26.0,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": "various mounting options"
+    },
+    {
+      "id": "trianglelab-chc-xl",
+      "manufacturer": "Trianglelab",
+      "name": "CHC XL",
+      "physical_length_mm": 51.5,
+      "effective_length_mm": 51.5,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": ""
+    },
+    {
+      "id": "trianglelab-chc-xp1",
+      "manufacturer": "Trianglelab",
+      "name": "CHC XP1",
+      "physical_length_mm": 35.0,
+      "effective_length_mm": 35.0,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": ""
+    },
+    {
+      "id": "trianglelab-dragon-ace",
+      "manufacturer": "Trianglelab",
+      "name": "Dragon Ace",
+      "physical_length_mm": 36.2,
+      "effective_length_mm": 36.2,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": ""
+    },
+    {
+      "id": "trianglelab-dragon-ace-volcano",
+      "manufacturer": "Trianglelab",
+      "name": "Dragon Ace Volcano",
+      "physical_length_mm": 44.7,
+      "effective_length_mm": 44.7,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": ""
+    },
+    {
+      "id": "trianglelab-dragon-v2-hf",
+      "manufacturer": "Trianglelab",
+      "name": "Dragon V2 HF",
+      "physical_length_mm": 26.0,
+      "effective_length_mm": 26.0,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": ""
+    },
+    {
+      "id": "trianglelab-dragon-v2-sf",
+      "manufacturer": "Trianglelab",
+      "name": "Dragon V2 SF",
+      "physical_length_mm": 18.5,
+      "effective_length_mm": 18.5,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": ""
+    },
+    {
+      "id": "trianglelab-rapido-ace-hf",
+      "manufacturer": "Trianglelab",
+      "name": "Rapido ACE HF",
+      "physical_length_mm": 35.0,
+      "effective_length_mm": 35.0,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": ""
+    },
+    {
+      "id": "trianglelab-rapido-ace-uhf",
+      "manufacturer": "Trianglelab",
+      "name": "Rapido ACE UHF",
+      "physical_length_mm": 43.4,
+      "effective_length_mm": 43.4,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": ""
+    },
+    {
+      "id": "trianglelab-std6-lc",
+      "manufacturer": "Trianglelab",
+      "name": "STD6-LC",
+      "physical_length_mm": 51.5,
+      "effective_length_mm": 51.5,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": ""
+    },
+    {
+      "id": "trianglelab-t-volcano-dragon-hf",
+      "manufacturer": "Trianglelab",
+      "name": "T-Volcano Dragon HF",
+      "physical_length_mm": 34.5,
+      "effective_length_mm": 34.5,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": ""
+    },
+    {
+      "id": "trianglelab-t-volcano-dragon-sf",
+      "manufacturer": "Trianglelab",
+      "name": "T-Volcano Dragon SF",
+      "physical_length_mm": 27.0,
+      "effective_length_mm": 27.0,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": ""
+    },
+    {
+      "id": "v9hotend-v9",
+      "manufacturer": "v9hotend",
+      "name": "V9",
+      "physical_length_mm": 39.5,
+      "effective_length_mm": 39.5,
+      "filament_diameter_mm": 1.75,
+      "filament_paths": 1,
+      "notes": ""
+    }
+  ]
+}

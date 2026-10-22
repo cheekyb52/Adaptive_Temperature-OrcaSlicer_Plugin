@@ -1,0 +1,19 @@
+MeltCalc hotend reference data
+Copyright (c) 2026 Robert Samples
+Project: https://meltcalc.baconmilkshake.com/
+Source: https://github.com/robertsamples/meltcalc
+Snapshot: e6bc61fef79f0da85e84977a878dd74d545b25b3
+Data license: Creative Commons Attribution 4.0 International (CC BY 4.0)
+License: https://creativecommons.org/licenses/by/4.0/
+Full license and warranty disclaimer: LICENSE-CONTENT.txt in this directory.
+
+The accompanying hotend data.csv is the source snapshot. hotends.json selects
+and normalizes its geometry columns and adds preset identifiers. The original
+data license and notices continue to apply to those records.
+
+Adaptive Temperature's burst scheduling policy is an independent, unvalidated heuristic.
+It is not a burst model supplied, calibrated or endorsed by Robert Samples.
+Physical heated length is used only as a filament-equivalent inventory proxy;
+effective heat-transfer length is never treated as additional stored volume.
+No third-party validation.csv measurements or website code are bundled.
+The data is provided as-is, without warranties; see LICENSE-CONTENT.txt.

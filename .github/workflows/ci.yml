@@ -1,0 +1,28 @@
+name: Windows checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-python@v7.0.0
+        with:
+          python-version: '3.12'
+      - name: Regression tests and packaged plugin
+        run: python -B -m unittest discover -s . -p "test_*.py" -v
+      - name: Check readable guide is current
+        run: python -B tools/build_repo_docs.py --check
+      - name: Check public source and release archives
+        run: python -B tools/check_public_release.py
+      - name: Check formatting
+        run: git diff --check

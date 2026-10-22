@@ -1,0 +1,13 @@
+SPDX-License-Identifier: GPL-3.0-only
+
+Adaptive Temperature is distributed under the GNU General Public License,
+version 3 only.
+Full license: COPYING (included), https://www.gnu.org/licenses/gpl-3.0.txt
+
+Motion planning portions are adapted from Klipper:
+https://github.com/Klipper3d/klipper/blob/master/klippy/toolhead.py
+Copyright (C) 2016-2025 Kevin O'Connor <kevin@koconnor.net>
+Klipper source states: This file may be distributed under the terms of the GNU GPLv3 license.
+Adapted for offline slicing analysis and temperature scheduling, October 2026.
+
+This software is provided without warranty. See the full GPL for its terms.

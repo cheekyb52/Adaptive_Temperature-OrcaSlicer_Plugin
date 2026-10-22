@@ -1,0 +1,96 @@
+Adaptive Temperature - Changelog
+
+Current release: 0.5.8
+
+0.5.8
+- Publish the GitHub README and illustrated Markdown guide, retain the PDF,
+  and add contribution instructions and Windows CI checks.
+- Clarify the plugin license as GPL-3.0-only while preserving the separate
+  MeltCalc data license and attribution.
+- Use deterministic release archive timestamps for consistent rebuilds.
+- Keep shared UTF-8 telemetry and event writers open during calibration and
+  flush each record for concurrent UI readers.
+- Fix the "Stream was not readable" recording failure.
+- Preserve heater shutdown and G-code state restoration if logging fails.
+- Add an illustrated user guide covering setup, calibration, per-tool profiles,
+  predictive scheduling, export, preview, and troubleshooting.
+- Document Process > Others > Slicing Pipeline Plugin and practical flow-curve
+  tips, including reuse of known filament presets and setup-specific examples.
+- Prepare the public source tree: synthetic test fixtures, development
+  instructions, release checks, and third-party license information.
+
+0.5.7
+- Add configurable X-first or Y-first positioning, with Z clearance checks
+  before and after tool selection.
+- Wait for and verify each positioning leg before starting the next.
+- Follow the active response phase in the live graph; add full-response and
+  full-run views with a compact overview.
+- Fix extrusion segmentation and fractional-duration rounding across flow
+  rates and firmware distance limits.
+- Surface calibration and cleanup errors directly in the UI.
+
+0.5.6
+- Preserve fractional queue timing so response calibration refills before
+  extrusion stops and stability checks can progress under continuous flow.
+
+0.5.5
+- Advance heating/cooling phases only after stability is established under
+  extrusion load, with minimum durations and per-phase timeouts.
+- Add user-adjustable stability tolerance and drift checks.
+- Use a short motion queue for response calibration and retain longer graphs.
+
+0.5.4
+- Apply the displayed settings when starting or positioning a calibration;
+  remove the need for a separate connection-settings save before Run.
+- Show baseline flow limits, including headroom, and explain disabled controls.
+- Reduce graph sizes and adapt them to narrower panels.
+
+0.5.3
+- Remove confirmation checkboxes; derive profile readiness from calibration
+  data and its setup binding.
+- Default editable filament name/type fields to PLA.
+- Separate Moonraker IP and port inputs; default the port to 7125.
+- Check the currently entered connection and distinguish connection status
+  from missing tool telemetry.
+- Preserve calibration on import while returning output mode to Analyze only.
+
+0.5.2
+- Synchronize setup and slice-binding confirmations in the earlier interface.
+- Add a first-use calibration notice and a Save button near the top of setup.
+  The confirmation controls were subsequently removed in 0.5.3.
+
+0.5.1
+- Prevent unconfigured or copied placeholder responses from qualifying as
+  calibrated profiles or being used for adaptive output.
+
+0.5.0
+- Rename the plugin Adaptive Temperature and consolidate the public UI.
+- Add single-tool and toolchanger configurations with up to four profiles.
+- Copy calibration between identical setups while retaining destination
+  heater, fan, selection method and tool mapping.
+- Generalize live calibration to Moonraker/Klipper printers and position at
+  the center of reported XY travel at Z100 mm.
+- Add hotend geometry presets and adjustable burst scheduling aggressiveness,
+  with licensed MeltCalc reference data and attribution.
+
+0.4.1
+- Isolate release package namespaces to prevent installed versions from
+  interfering with imports during upgrades.
+
+0.4.0
+- Introduce hybrid path-demand averaging with calibrated heating and cooling
+  response models for predictive temperature scheduling.
+- Use separate heating and cooling delays and time constants.
+- Add green section headers and clearer saved output status.
+
+0.3.0
+- Move the workspace into an Orca main tab using the Pages capability.
+- Add inspection-oriented temperature command generation at G-code export.
+- Display slice analysis, generated command summaries and exportable reports.
+
+0.2.0 - Early Orca Flow development
+- Introduce filament temperature/flow curves, acceleration-aware offline flow
+  analysis, live calibration experiments and an initial settings interface.
+
+Historical entries describe the feature progression. Only the current release
+artifacts are retained in this source distribution.

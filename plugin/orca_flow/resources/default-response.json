@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "name": "Response calibration required",
+  "source": "unconfigured",
+  "independently_validated": false,
+  "binding": {"printer_name": "", "physical_tool": 0, "material": "PLA", "nozzle_diameter_mm": 0.4, "hotend": "Unconfigured hotend"},
+  "heating": {"delay_s": 0, "time_constant_s": 1},
+  "cooling": {"delay_s": 0, "time_constant_s": 1}
+}

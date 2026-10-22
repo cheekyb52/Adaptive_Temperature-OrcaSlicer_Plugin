@@ -1,0 +1,7 @@
+Adaptive Temperature 0.5.8 - Illustrated User Guide
+
+Open index.html in a browser, or read Adaptive Temperature User Guide.pdf.
+Keep the images folder beside index.html. Screenshots show the released UI
+with illustrative inputs and simulated results, never a live printer.
+The example IP address 192.0.2.10 is a documentation placeholder.
+This guide does not install or change the plugin.

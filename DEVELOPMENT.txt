@@ -1,0 +1,93 @@
+Adaptive Temperature - Development
+
+Requirements
+
+- Python 3.12 or newer. The source and Python tests use the standard library.
+- Windows PowerShell 5.1 for calibration-runner tests and live calibration.
+- Google Chrome for optional offline UI screenshots and PDF guide rendering.
+- OrcaSlicer 2.5 nightly with Pages and Slicing Pipeline plugin APIs for host
+  integration. A normal Python interpreter can build the wheel without Orca.
+
+Build and verify
+
+From the project root:
+
+    python build_plugin.py
+    python -m unittest discover -s . -p "test_*.py" -v
+    python verify_current_ui.py
+    python tools/build_repo_docs.py --check
+    python tools/check_public_release.py
+    python tools/build_source_release.py
+
+The Python suite uses synthetic fixtures, local API doubles and a temporary
+loopback HTTP server. It does not connect to or operate a real printer. Windows
+tests exercise the real PowerShell calculation, geometry and logging helpers
+with command submission mocked. Windows-only tests are skipped elsewhere.
+
+verify_current_ui.py generates offline browser test pages under .build/ui.
+Open ui-check.html and ui-bridge-check.html in Chrome. A passing page sets its
+document title to PASS; the mocked bridge cannot connect to printer hardware.
+verify_positioning_ui.py creates a separate offline positioning fixture.
+
+For a broader optional extrusion arithmetic audit on Windows:
+
+    powershell -NoProfile -ExecutionPolicy Bypass -File audit_extrusion_rounding.ps1 -OutputFile .build/rounding.json
+    python audit_probe_rounding.py
+
+These command-generation audits cover a numerical range, not a claim that a
+particular hotend can physically deliver every tested flow rate.
+
+Regenerate the illustrated guide
+
+    python docs/build_user_guide.py
+    powershell -NoProfile -ExecutionPolicy Bypass -File docs/render_user_guide.ps1
+
+The renderer accepts -Python and -Chrome paths if those executables are not
+available at their defaults. It uses the current standalone preview and an
+offline bridge with example inputs and simulated results. Intermediate pages,
+browser profiles and logs go into .build/guide; only the final guide and its
+images belong in docs/Adaptive Temperature Guide.
+
+Source layout
+
+- plugin/orca_flow/: Orca host capabilities, controller, UI and resources.
+- Root Python modules: curve, motion, scheduling, fitting and telemetry logic.
+- Root PowerShell helpers: live runner, positioning, response and logging.
+- test_*.py and verify_*.ps1: regression tests and offline fixtures.
+- docs/: illustrated guide source, renderer and current published guide.
+- docs/USER_GUIDE.md: GitHub-readable guide generated from guide-content.html.
+- tools/: public-release privacy/package checks and source bundle builder.
+- dist/: current installable wheel, release bundle and user-guide bundle.
+
+Contributing
+
+Describe the behavior you want to change and provide a small reproducible
+example. Prefer synthetic G-code, telemetry and profiles. Remove printer IPs,
+hostnames, account names, file paths, serial numbers, tokens and camera images
+from shared bug reports. A saved settings export can contain printer details.
+
+Run the relevant tests and the public-release checker before submitting a
+change. Preserve original startup, first-layer and shutdown behavior when
+changing scheduling. Changes to live controls need offline boundary tests;
+real printer testing is a separate, explicit action.
+
+The build uses a version-specific import namespace because Orca can load
+several installed wheels into one Python interpreter. Keep old G-code marker
+handling and configuration compatibility where required; historical protocol
+version constants in source are not obsolete release artifacts.
+
+Before publishing
+
+Review the current guide, README, changelog and third-party notices. Build and
+run the release checker, including scans inside wheels and ZIPs. Keep only
+current artifacts in dist. Generated .build files and local settings are
+excluded from the source bundle. Run the checker on source archives as well.
+
+For regular changes, create a feature branch, run the checks, commit source and
+documentation together, and push the branch for a pull request. CONTRIBUTING.md
+contains the full Git workflow. Windows CI repeats the regression, guide and
+privacy checks on pushes and pull requests. Release ZIP timestamps are fixed
+so unchanged source produces unchanged artifacts.
+
+The project is licensed GPL-3.0-only. Hotend reference data is CC BY 4.0.
+Keep COPYING, LICENSE.txt and resources/meltcalc attribution/license files.

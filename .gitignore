@@ -1,0 +1,41 @@
+# Generated Python files and local development environments
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Local calibration, debugging and browser rendering output
+.build/
+Research/
+Backups/
+Test Project file/
+sessions/
+**/sessions/
+*.log
+*.jsonl
+*.gcode
+*.bgcode
+*.3mf
+
+# Credentials, local settings and editor/OS files
+.env
+.env.*
+!.env.example
+*credentials*
+*.pem
+*.key
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Agent-specific local files
+.agents/
+.codex/
+
+# Source archives are generated for sharing, not committed into themselves.
+dist/*-Source.zip

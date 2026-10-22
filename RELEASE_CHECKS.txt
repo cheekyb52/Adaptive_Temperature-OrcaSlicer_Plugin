@@ -1,0 +1,46 @@
+Adaptive Temperature 0.5.8 - Public release verification
+
+Release file: adaptive_temperature-0.5.8-py3-none-any.whl
+License: GPL-3.0-only; bundled MeltCalc data remains CC BY 4.0.
+Current wheel SHA-256:
+009146af3a50ee34b3bcb4b8bfb6b63a42330826c7d912fd1352b6840663feed
+
+Software checks
+
+- All 128 regression tests passed on Windows / Python 3.12, with no failures,
+  errors or skips. Packaged host capabilities, settings, single-tool and
+  four-tool scheduling, calibration fitting and upgrade isolation are covered.
+- Offline workspace and mocked Orca bridge browser checks passed.
+- The five packaged PowerShell helpers parsed, and their code tokens match
+  the previously validated 0.5.8 after excluding comments and line endings.
+- Python syntax trees match that validated build after normalizing license
+  identifier strings. Scheduling, calibration and motion logic are unchanged.
+- UI JavaScript is unchanged; the About notice now identifies GPL-3.0-only.
+- Configuration JSON values and the pinned third-party data snapshot are
+  unchanged. Upstream license and attribution files remain included.
+- Wheel CRCs and RECORD sizes/hashes are checked by packaging verification.
+- Release archives use fixed timestamps for stable rebuilds.
+
+Documentation and distribution checks
+
+- The GitHub-readable guide has all 13 sections, 10 UI pictures, tables and
+  calibration notices from the shared illustrated guide source.
+- Local documentation, download, picture and navigation links were checked.
+- The printable PDF is included in docs and the current install bundle.
+- Current install bundle includes the wheel, standalone preview, README,
+  changelog, GPL text, attribution and the illustrated guide.
+- Public source and nested release archives pass privacy/package checks.
+- Windows CI runs regression, guide synchronization, package/privacy and
+  formatting checks on pushes to main and pull requests.
+
+Before the public license clarification, all 35 wheel payloads matched the
+pre-cleanup 0.5.8 byte-for-byte; only ZIP timestamps differed. Publishing
+updates license labels/notices and normalizes text/archive formatting. The
+logic comparisons above verify that those changes preserve plugin behavior.
+
+These are offline software/package checks. They do not qualify a particular
+printer's physical flow capacity, melt temperature or print quality. Runtime
+behavior remains subject to the experimental Orca nightly integration.
+
+Re-run the commands in CONTRIBUTING.md or DEVELOPMENT.txt after changes.
+Feature progression is recorded in CHANGELOG.txt.
